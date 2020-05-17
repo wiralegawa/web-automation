@@ -6,10 +6,8 @@ require_relative './Login_Page.rb'
 require_relative './Home_Page.rb'
 
 class MainClass
-        @arr_ItemsDisplayed     = nil
         def initBrowser (browserType)
                 browserType.gsub(/\n\s+/, " ")
-                @arr_ItemsDisplayed     = Array.new
                 if browserType.include? 'firefox'
                   @@objAbstractPage = AbstractPage.new(Selenium::WebDriver.for(:firefox))
                 elsif browserType.include? 'chrome'
@@ -25,5 +23,18 @@ class MainClass
           homePageUrl.gsub(/\n\s+/, " ")
           @@objAbstractPage.navigateToHomePage homePageUrl
           return HomePage.new @@webDriver
+        end
+
+        def navigateToLoginPage
+          puts 'navigate to login page'
+          @@objClsHomePage.goToLoginPage
+          return LoginPage.new @@webDriver
+        end
+
+        def loginWith (username,password)
+          username.gsub(/\n\s+/, " ")
+          password.gsub(/\n\s+/, " ")
+          puts 'Login with ', username , ' password ' , password
+          @@objLoginPage.loginPage_loginWith username, password
         end
 end

@@ -11,7 +11,7 @@ class HomePage < AbstractPage
 
         def goToLoginPage
                 @@webDriver.action.click(@@webDriver.find_element(:id => 'nav-link-accountList')).perform
-                wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-                wait.until { driver.find_element(:id, 'ap_email').displayed? }
+                wait = Selenium::WebDriver::Wait.new(:timeout => 2)
+                wait.until { @@webDriver.find_element(:id, 'ap_email').displayed? }
         end
 end

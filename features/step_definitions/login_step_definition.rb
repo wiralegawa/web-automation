@@ -8,7 +8,7 @@ require_relative '../page_object/Home_Page.rb'
 @@webDriver             = nil
 @@objMainPage           = MainClass.new
 @@objAbstractPage       = nil
-@@obj_CurrentPage       = nil
+@@objLoginPage          = nil
 @@objClsHomePage        = nil
 
 When("init browser") do
@@ -25,4 +25,13 @@ end
 Then("quit this test") do
  puts 'I Quit This Test'
  @@objMainPage.quitTest
+end
+
+Given("I navigate to login page") do
+ @@objLoginPage = @@objMainPage.navigateToLoginPage
+end
+
+When("I login with username {string} password {string}") do |username, password|
+ puts 'login with username ' , username , ' passwrod ' , password
+ @@objMainPage.loginWith username, password
 end
