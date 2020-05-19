@@ -4,6 +4,7 @@ require 'selenium-webdriver'
 require_relative './Abstract_Page.rb'
 require_relative './Login_Page.rb'
 require_relative './Home_Page.rb'
+require_relative './Register_Page.rb'
 
 class MainClass
         def initBrowser (browserType)
@@ -26,7 +27,6 @@ class MainClass
         end
 
         def navigateToLoginPage
-          puts 'navigate to login page'
           @@objClsHomePage.goToLoginPage
           return LoginPage.new @@webDriver
         end
@@ -34,7 +34,40 @@ class MainClass
         def loginWith (username,password)
           username.gsub(/\n\s+/, " ")
           password.gsub(/\n\s+/, " ")
-          puts 'Login with ', username , ' password ' , password
           @@objLoginPage.loginPage_loginWith username, password
+        end
+
+        def assertSuccessLogin
+          @@objLoginPage.assertSuccessLogin
+        end
+
+        def failLoginWith (username)
+          username.gsub(/\n\s+/, " ")
+          @@objLoginPage.failedLogin username
+        end
+
+        def assertInvalidLogin
+          @@objLoginPage.assertFailLogin
+        end
+
+        def navigateToRegisterPage
+          @@objLoginPage.goToRegisterPage
+          return RegisterPage.new @@webDriver
+        end
+
+        def registerWith (name, email, password, reEnterPassword)
+          name.gsub(/\n\s+/, " ")
+          email.gsub(/\n\s+/, " ")
+          password.gsub(/\n\s+/, " ")
+          reEnterPassword.gsub(/\n\s+/, " ")
+          @@objRegisterPage.registerPageWith name, email, password, reEnterPassword
+        end
+
+        def assertOTPRegistration
+          @@objRegisterPage.assertOTPRegister
+        end
+
+        def assertInvalidEmailReg
+          @@objRegisterPage.assertInvalidEmailRegister
         end
 end

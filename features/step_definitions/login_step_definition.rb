@@ -35,3 +35,18 @@ When("I login with username {string} password {string}") do |username, password|
  puts 'login with username ' , username , ' passwrod ' , password
  @@objMainPage.loginWith username, password
 end
+
+When("I login with invalid email format {string}") do |username|
+ puts 'invalid login with ' , username
+ @@objMainPage.failLoginWith username
+end
+
+Then("I see Login Success") do
+ puts 'Assert Success Login'
+ @@objMainPage.assertSuccessLogin
+end
+
+Then("I see Login Failed with Error Message") do
+ puts 'Assert Fail Login'
+ @@objMainPage.assertInvalidLogin
+end
